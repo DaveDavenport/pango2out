@@ -1,4 +1,5 @@
 PROGRAM:=pango2out
+PREFIX?=/usr/local/
 CFLAGS:=$(shell pkg-config --cflags pango glib-2.0)
 LDFLAGS:=$(shell pkg-config --libs pango glib-2.0)
 EMPTY:=
@@ -13,6 +14,10 @@ all: ${PROGRAM}
 ${PROGRAM}: ${PROGRAM}.c
 	$(CC) ${CFLAGS} -o $@ $^ ${LDFLAGS}
 
-.PHONY: 
+.PHONY: install
+install: $(PROGRAM)
+	install -D ${PROGRAM} ${DESTDIR}${PREFIX}/bin/
+
+.PHONY: clean
 clean:
 	rm -f ${PROGRAM}
