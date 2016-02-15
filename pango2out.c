@@ -35,10 +35,8 @@ int main ( int argc, char **argv )
     char *buffer = NULL;
     size_t buffer_length = 0;
     GMarkupParseContext *pc = pango_markup_parser_new ( 0 );
-    while ( getline ( &buffer, &buffer_length, stdin) > 0 ) {
-        if ( !g_markup_parse_context_parse(pc, buffer, buffer_length, &error) ) {
-            break;
-        }
+    while ( error == NULL && getline ( &buffer, &buffer_length, stdin) > 0 ) {
+        g_markup_parse_context_parse(pc, buffer, buffer_length, &error);
     }
     free(buffer);
     buffer = NULL;
