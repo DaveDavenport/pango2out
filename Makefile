@@ -9,6 +9,7 @@ all: ${PROGRAM}
 
 depends.mk: Makefile
 	${info Check for dependencies: ${DEPENDENCIES}}
+	$V which pkg-config
 	$V pkg-config --exists --print-errors ${DEPENDENCIES}
 	$V echo "LDFLAGS+=$(shell pkg-config --silence-errors --libs ${DEPENDENCIES})" > $@
 	$V echo "CFLAGS+=$(shell pkg-config --silence-errors --cflags ${DEPENDENCIES})" >> $@
